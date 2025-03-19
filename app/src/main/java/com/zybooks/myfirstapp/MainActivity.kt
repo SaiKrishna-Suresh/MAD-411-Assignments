@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     class Expense (val name:String, val amount:Double,val date:String)
 
 }
