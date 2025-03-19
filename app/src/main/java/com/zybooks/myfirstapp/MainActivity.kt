@@ -2,7 +2,6 @@ package com.zybooks.myfirstapp
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.LocusId
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
