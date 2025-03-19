@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Expense Name"
-        android:padding="28dp"
         android:minHeight="48dp"/>
 
     <EditText
@@ -38,11 +37,19 @@
         android:text="Add Expense"
         android:layout_gravity="center_vertical"/>
 
+    <Button
+        android:id="@+id/browserButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Financial Tips"
+        android:layout_marginTop="10dp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"/>
+        android:padding="12dp" />
 
 </LinearLayout>
 

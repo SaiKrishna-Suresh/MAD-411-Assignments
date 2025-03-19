@@ -1,10 +1,12 @@
 package com.zybooks.myfirstapp
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -34,6 +36,17 @@ class ExpenseAdapter (
             notifyItemRemoved(position)
             notifyItemRangeChanged(position,expenseList.size)
         }
+        holder.detailsButton.setOnClickListener{
+
+            val intent = Intent(holder.itemView.context,ExpenseDetailsActivity::class.java).apply{
+                putExtra("expenseName",expense.name)
+                putExtra("expenseAmount",expense.amount)
+                putExtra("expenseDate",expense.date)
+            }
+            holder.itemView.context.startActivity(intent)
+        }
+
+
 
     }
 
@@ -45,6 +58,8 @@ class ExpenseAdapter (
         val amount: TextView = view.findViewById(R.id.amountView)
         val date: TextView = view.findViewById(R.id.dateView)
         val deleteButton:Button = view.findViewById(R.id.deleteButton)
+        val detailsButton:Button = view.findViewById(R.id.detailsButton)
+
     }
 
 }

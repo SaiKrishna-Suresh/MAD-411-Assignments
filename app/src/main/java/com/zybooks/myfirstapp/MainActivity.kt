@@ -1,13 +1,12 @@
 package com.zybooks.myfirstapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var expenseDate: EditText
     private lateinit var expenseButton: Button
     private lateinit var recyclerView: RecyclerView
+    private lateinit var browserButton:Button
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         expenseAmount = findViewById(R.id.expenseAmount)
         expenseDate = findViewById(R.id.expenseDate)
         expenseButton = findViewById(R.id.expenseButton)
+        browserButton = findViewById(R.id.browserButton)
         recyclerView = findViewById(R.id.recyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -50,6 +51,12 @@ class MainActivity : AppCompatActivity() {
             expenseAmount.text.clear()
             expenseDate.text.clear()
 
+
+        }
+
+        browserButton.setOnClickListener{
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.finanacialtips.com"))
+            startActivity(intent)
         }
 
     }
