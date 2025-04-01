@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +42,8 @@ class MainActivity : AppCompatActivity() {
         val adapter = ExpenseAdapter(expenseList)
         recyclerView.adapter = adapter
 
+        loadToFile()
+
         addFragment(HeaderFragment(), R.id.headerContainer)
         footerFragment = FooterFragment()
         addFragment(footerFragment, R.id.footerContainer)
@@ -54,6 +58,8 @@ class MainActivity : AppCompatActivity() {
             val expense = Expense(name, amount.toDouble(), date)
             expenseList.add(expense)
             adapter.notifyItemInserted(expenseList.size)
+
+            saveToFile(expenseList)
 
             expenseName.text.clear()
             expenseAmount.text.clear()
@@ -70,8 +76,40 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+    private fun saveToFile(expenses: List<Expense>) {
+        val gson = Gson()
+        val json = gson.toJson(expenses)
 
-        private fun updateTotalExpense(expenseList: List<Expense>){
+        try {
+            openFileOutput("expenses.json", MODE_PRIVATE).use { output ->
+                output.write(json.toByteArray())
+            }
+            Log.d("File Storage","Expenses Saved Succesfully")
+        } catch (e: Exception) {
+            Log.e("Main Activity", "Error saving expenses", e)
+        }
+    }
+
+    private fun loadToFile(): List<Expense> {
+        val expenses = mutableListOf<Expense>()
+        try {
+            openFileInput("expenses.json").use { input ->
+                val json = input.bufferedReader().readText()
+                val gson = Gson()
+                val expenseListType = object : TypeToken<List<Expense>>() {}.type
+                expenses.addAll(gson.fromJson(json, expenseListType))
+
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error reading expenses", e)
+        }
+        return expenses
+
+    }
+
+
+
+    private fun updateTotalExpense(expenseList: List<Expense>){
             val totalAmount = expenseList.sumOf { it.amount }
             footerFragment.updateTotalAmount(totalAmount)
         }
