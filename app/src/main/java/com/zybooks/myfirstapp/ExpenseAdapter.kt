@@ -1,17 +1,20 @@
 package com.zybooks.myfirstapp
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.NavController
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 
 class ExpenseAdapter (
-    private val expenseList: MutableList<MainActivity.Expense>):
+    private val expenseList: MutableList<Expense>,
+    private val navController:NavController):
         RecyclerView.Adapter<ExpenseAdapter.ExpenseViewHolder>(){
 
     override fun onCreateViewHolder(
@@ -38,12 +41,12 @@ class ExpenseAdapter (
         }
         holder.detailsButton.setOnClickListener{
 
-            val intent = Intent(holder.itemView.context,ExpenseDetailsActivity::class.java).apply{
-                putExtra("expenseName",expense.name)
-                putExtra("expenseAmount",expense.amount)
-                putExtra("expenseDate",expense.date)
+            val bundle = Bundle().apply{
+                putString("expenseName",expense.name)
+                putFloat("expenseAmount",expense.amount.toFloat())
+                putString("expenseDate",expense.date)
             }
-            holder.itemView.context.startActivity(intent)
+            navController.navigate(R.id.action_expenseListFragment_to_expenseDetailsFragment,bundle)
         }
 
 

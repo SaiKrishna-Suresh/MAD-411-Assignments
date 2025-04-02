@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
@@ -8,59 +9,14 @@
     android:padding="18dp"
     tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/headerContainer"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        app:navGraph="@navigation/nav_graph"
+        app:defaultNavHost="true"/>
 
-
-    <EditText
-        android:id="@+id/expenseName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Expense Name"
-        android:minHeight="48dp"/>
-
-    <EditText
-        android:id="@+id/expenseAmount"
-        android:hint="Expense Amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="50dp"/>
-
-    <EditText
-        android:id="@+id/expenseDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Date"
-        android:minHeight="48dp"/>
-
-    <Button
-        android:id="@+id/expenseButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Expense"
-        android:layout_gravity="center_vertical"/>
-
-
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="12dp" />
-
-    <FrameLayout
-        android:id="@+id/footerContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/browserButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Financial Tips"
-        android:layout_marginTop="10dp"/>
 
 </LinearLayout>
 
