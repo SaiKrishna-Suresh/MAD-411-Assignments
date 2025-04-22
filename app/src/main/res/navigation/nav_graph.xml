@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/habitListFragment">
+
+    <fragment
+        android:id="@+id/habitListFragment"
+        android:name="com.zybooks.exammock.HabitListFragment"
+        android:label="Expense List"
+        tools:layout="@layout/fragment_habit_list">
+        <action
+            android:id="@+id/action_habitListFragment_to_habitFragment"
+            app:destination="@+id/habitFragment"/>
+
+        <action
+            android:id="@+id/action_habitListFragment_to_quoteFragment"
+            app:destination="@+id/quoteFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/habitFragment"
+        android:name="com.zybooks.exammock.HabitFragment"
+        android:label="Expense Details"
+        tools:layout="@layout/fragment_habit">
+        <argument
+            android:name="habitName"
+            app:argType="string"/>
+        <argument
+            android:name="habitGoal"
+            app:argType="string"/>
+        <argument
+            android:name="habitTime"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/quoteFragment"
+        android:name="com.zybooks.exammock.QuoteFragment"
+        android:label="Motivational Quote"
+        tools:layout="@layout/fragment_quote" />
+
+</navigation>
