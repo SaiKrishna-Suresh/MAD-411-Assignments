@@ -1,5 +1,7 @@
 package com.zybooks.exammock
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -18,6 +20,7 @@ import com.google.gson.reflect.TypeToken
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.IOException
+import java.util.Calendar
 
 private const val FILE_NAME = "habits.txt"
 class HabitListFragment : Fragment() {
@@ -55,11 +58,51 @@ class HabitListFragment : Fragment() {
         loadDefaultsButton = view.findViewById(R.id.loadDefaultsButton)
         showQuoteButton = view.findViewById(R.id.showQuote)
 
+        habitTime.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val hour = calendar.get(Calendar.HOUR_OF_DAY)
+            val minute = calendar.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(
+                requireContext(),
+                { _, selectedHour, selectedMinute ->
+                    val amPm = if (selectedHour >= 12) "PM" else "AM"
+                    val hour12 = if (selectedHour > 12) selectedHour - 12 else if (selectedHour == 0) 12 else selectedHour
+                    val formattedTime = String.format("%02d:%02d %s", hour12, selectedMinute, amPm)
+                    habitTime.setText(formattedTime)
+                },
+                hour,
+                minute,
+                false
+            )
+
+            timePickerDialog.show()
+        }
+
+
         val habitList = loadTasksFromFile(requireContext())
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter = HabitAdapter(habitList,findNavController())
         recyclerView.adapter = adapter
+
+
+        val dateEditText = view.findViewById<EditText>(R.id.dateEditText)
+
+        dateEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = "${selectedDay}/${selectedMonth + 1}/${selectedYear}"
+                dateEditText.setText(formattedDate)
+            }, year, month, day)
+
+            datePickerDialog.show()
+        }
+
 
         loadDefaultsButton.setOnClickListener {
             val defaultHabits = listOf(
